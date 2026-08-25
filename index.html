@@ -6,66 +6,71 @@
   <title>Wisata AR 3D</title>
   <style>
     * { box-sizing: border-box; }
-    body { 
-      margin: 0; 
-      padding: 20px; 
-      background: #111; 
-      color: #fff; 
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+      color: #fff;
       font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .header {
+      margin: 20px 0 10px 0;
       text-align: center;
     }
-    h1 {
-      margin-bottom: 30px;
+    select {
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #00d2ff;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 20px;
     }
-    .grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-    .card {
+    .viewer-container {
+      width: 90vw;
+      height: 75vh;
+      max-width: 900px;
       background: #222;
       border-radius: 12px;
-      padding: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    iframe {
       width: 100%;
-      max-width: 450px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    }
-    .card h3 {
-      margin-top: 0;
-      color: #00d2ff;
-    }
-    iframe { 
-      width: 100%; 
-      height: 350px; 
-      border: 0; 
-      border-radius: 8px;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
 <body>
 
-  <h1>Galeri Wisata 3D</h1>
-
-  <div class="grid">
-    <!-- Model 1: T-Rex -->
-    <div class="card">
-      <h3>Patung Dinosaurus</h3>
-      <iframe src="https://sketchfab.com/models/e86c9577467c49b8a66d591d330daf79/embed?autostart=1&ui_theme=dark" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen></iframe>
-    </div>
-
-    <!-- Model 2: Rumah Joglo -->
-    <div class="card">
-      <h3>Joglo</h3>
-      <iframe src="https://sketchfab.com/models/5f975e24d4004fb6a505ce92088923c8/embed?autostart=1&ui_theme=dark" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen></iframe>
-    </div>
-
-    <!-- Model 3: Dwarapala Singasari -->
-    <div class="card">
-      <h3>Patung Dwarapala</h3>
-      <iframe src="https://sketchfab.com/models/a953ad06f4844738aea93974d5288ab6/embed?autostart=1&ui_theme=dark" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen></iframe>
-    </div>
+  <div class="header">
+    <h1>Galeri Wisata 3D</h1>
+    <label for="modelSelect">Pilih Objek 3D: </label>
+    <select id="modelSelect" onchange="changeModel()">
+      <option value="https://sketchfab.com/models/e86c9577467c49b8a66d591d330daf79/embed?autostart=1&ui_theme=dark">Patung Dinosaurus</option>
+      <option value="https://sketchfab.com/models/5f975e24d4004fb6a505ce92088923c8/embed?autostart=1&ui_theme=dark">Rumah Joglo</option>
+      <option value="https://sketchfab.com/models/a953ad06f4844738aea93974d5288ab6/embed?autostart=1&ui_theme=dark">PatungDwarapala</option>
+    </select>
   </div>
+
+  <div class="viewer-container">
+    <iframe id="modelIframe" src="https://sketchfab.com/models/e86c9577467c49b8a66d591d330daf79/embed?autostart=1&ui_theme=dark" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    function changeModel() {
+      const select = document.getElementById('modelSelect');
+      const iframe = document.getElementById('modelIframe');
+      iframe.src = select.value;
+    }
+  </script>
 
 </body>
 </html>
